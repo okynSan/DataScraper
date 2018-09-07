@@ -83,4 +83,21 @@
 
     </dependencies>
     
+    <profiles>
+        <profile>
+            <id>UKRSIB_TELEGRAM</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <jdbc-url>jdbc:mysql://localhost/home?serverTimezone=UTC</jdbc-url>
+                <jdbc.oma.username>root</jdbc.oma.username>
+                <jdbc.oma.password>xxxxx</jdbc.oma.password>
+                
+                <page_url>https://online.ukrsibbank.com/ibank/</page_url>
+            </properties>
+        </profile>
+    </profiles>
+    
+    
 </project>

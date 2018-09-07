@@ -19,15 +19,20 @@ import ua.anza.ukrsib.workflow.UkrSibWorkFlow;
  */
 public class Main {
 
+    public static String LOGIN;
+    public static String PASSWORD;
+
     public static void main(String[] args) throws IOException {
+        Main.LOGIN = args[0];
+        Main.PASSWORD = args[1];
+
         AbstractWorkFlow ukrSib = new UkrSibWorkFlow(new BankEventDaoImpl(),
-                                                    new UkrSibPage(),
-                                                    MessangerFactory.getMessenger(MessangerEnum.Telegram)
-                                            );
+                new UkrSibPage(),
+                MessangerFactory.getMessenger(MessangerEnum.Telegram)
+        );
 
         ukrSib.doWorkFlow();
-    
-    
+
     }
 
 }

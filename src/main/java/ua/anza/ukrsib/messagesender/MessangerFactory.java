@@ -5,9 +5,7 @@
  */
 package ua.anza.ukrsib.messagesender;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Properties;
+import ua.anza.ukrsib.confige.prop.ProjectProperties;
 import ua.anza.ukrsib.messagesender.telegram.TelegramMessanger;
 
 /**
@@ -16,23 +14,23 @@ import ua.anza.ukrsib.messagesender.telegram.TelegramMessanger;
  */
 public class MessangerFactory {
 
-    private static Properties properties;
-
-    static {
-        properties = new Properties();
-        URL url = ClassLoader.getSystemResource("Configuration.properties");
-        try {
-            properties.load(url.openStream());
-        } catch (IOException ex) {
-        }
-    }
+//    private static Properties properties;
+//
+//    static {
+//        properties = new Properties();
+//        URL url = ClassLoader.getSystemResource("Configuration.properties");
+//        try {
+//            properties.load(url.openStream());
+//        } catch (IOException ex) {
+//        }
+//    }
 
     public static AbstractMessanger getMessenger(MessangerEnum messangerEnum) {
         switch (messangerEnum) {
             case Telegram:
-                return new TelegramMessanger(properties.getProperty("url"),
-                        properties.getProperty("apiToken"),
-                        properties.getProperty("chatId")
+                return new TelegramMessanger(ProjectProperties.getPropertyByKey("url"),
+                        ProjectProperties.getPropertyByKey("apiToken"),
+                        ProjectProperties.getPropertyByKey("chatId")
                 );
             default:
                 new TelegramMessanger(null, null, null);
