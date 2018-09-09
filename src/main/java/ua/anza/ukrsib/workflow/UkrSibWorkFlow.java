@@ -5,6 +5,7 @@
  */
 package ua.anza.ukrsib.workflow;
 
+import com.google.common.collect.Lists;
 import java.util.List;
 import ua.anza.ukrsib.DAO.bankevent.IBankEventDao;
 import ua.anza.ukrsib.component.Page;
@@ -23,18 +24,30 @@ public class UkrSibWorkFlow extends AbstractWorkFlow {
 
     @Override
     public void doWorkFlow() {
-        List<BankEvent> bankEvents = pages.doWorkFlow();
-        bankEvents.stream().forEach(bE -> {
-            if (this.bankEventDao.isBankEventIfNotExists(bE)) {
-                this.bankEventDao.saveBankEvent(bE);
-            }
-        });
+        List<BankEvent> bankEvents = null;
         
-        //TODO: BankeEvent
-        List<Float> spentSums = this.bankEventDao.getUnCheckedSums();
-        spentSums.stream().forEach(sums -> this.messanger.sendMessage(new StringBuilder("You spent ")
-                .append(sums)
-                .append("").toString()));
+        bankEvents = pages.doWorkFlow();
+
+        if (bankEvents != null) {
+            bankEvents.stream().forEach(bE -> {
+                if (this.bankEventDao.isBankEventIfNotExists(bE)) {
+                    this.bankEventDao.saveBankEvent(bE);
+                }
+            });
+
+            //TODO: BankeEvent
+            List<BankEvent> bankEvList = this.bankEventDao.getUnCheckedSums();
+            Lists.reverse(bankEvList).stream().forEach(bk -> {
+                this.messanger.sendMessage(new StringBuilder("")
+                        .append(bk.getSumSpent() < 0 ? "You spent " + bk.getSumSpent() : "Yout received " + bk.getSumSpent())
+                        .append(bk.getActualSum() != 0 ? "; actual sum: " + bk.getActualSum() : "")
+                        .append("").toString());
+                this.bankEventDao.setChecked(bk.getBankEventId());
+            }
+            );
+
+        }
+
     }
 
 }

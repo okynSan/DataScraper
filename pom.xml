@@ -91,13 +91,16 @@
             </activation>
             <properties>
                 <jdbc-url>jdbc:mysql://localhost/home?serverTimezone=UTC</jdbc-url>
-                <jdbc.oma.username>root</jdbc.oma.username>
-                <jdbc.oma.password>xxxxx</jdbc.oma.password>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>Okyn132465</jdbc.password>
                 
                 <page_url>https://online.ukrsibbank.com/ibank/</page_url>
+                <messanger_url>https://api.telegram.org/bot</messanger_url>
+                
             </properties>
         </profile>
     </profiles>
+    
     
     
 </project>

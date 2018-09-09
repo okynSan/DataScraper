@@ -28,6 +28,9 @@ public class Login {
     @FindBy(how = How.XPATH, xpath = "//*[@id=\"ide\"]")
     private WebElement passworkdTextField;
 
+    @FindBy(how = How.CSS, css = "#idaa > div.userPanel > div.section.right > a.actionLogout")
+    private WebElement logOut;
+
     public ILoginController loginController;
 
     Dashboard dashboard;
@@ -54,5 +57,10 @@ public class Login {
         return dashboard;
     }
 
+    public WebElement getLogOut() {
+        return logOut;
+    }
 
+    
+    
 }

@@ -34,11 +34,11 @@ public class DashBoardControllerImpl implements IDashBoardController {
     }
 
     @Override
-    public Double getCurrentCapital() {
+    public Float getCurrentCapital() {
         String sumFull = this.dbDashboard.getSumFull().getText();
         String sumDecimals = this.dbDashboard.getSumDecimals().getText();
 
-        return Double.parseDouble(sumFull.concat(sumDecimals).replaceAll(",", "."));
+        return Float.parseFloat(sumFull.concat(sumDecimals).replaceAll(",", "."));
     }
 
     @Override

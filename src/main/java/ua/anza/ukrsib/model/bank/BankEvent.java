@@ -5,6 +5,7 @@
  */
 package ua.anza.ukrsib.model.bank;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 /**
@@ -13,6 +14,7 @@ import java.util.Calendar;
  */
 public class BankEvent {
 
+    private Integer bankEventId;
     private Float actualSum;
     private Float prevSum;
     private Calendar eventDate;
@@ -34,6 +36,22 @@ public class BankEvent {
         this.eventDate = eventDate;
         this.sumSpent = sumSpent;
         this.insertDate = insertDate;
+    }
+
+    public BankEvent(Float actualSum, Float prevSum, Calendar eventDate, Float sumSpent, Integer bankEventId) {
+        this.actualSum = actualSum;
+        this.prevSum = prevSum;
+        this.eventDate = eventDate;
+        this.sumSpent = sumSpent;
+        this.bankEventId = bankEventId;
+    }
+
+    public Integer getBankEventId() {
+        return bankEventId;
+    }
+
+    public void setBankEventId(Integer bankEventId) {
+        this.bankEventId = bankEventId;
     }
 
     public Float getActualSum() {
@@ -78,7 +96,7 @@ public class BankEvent {
 
     @Override
     public String toString() {
-        return "BankEvent{" + "actualSum=" + actualSum + ", prevSum=" + prevSum + ", savedDate=" + eventDate + '}';
+        return "BankEvent{" + "actualSum=" + actualSum + ", prevSum=" + prevSum + ", eventDate=" + eventDate + ", sumSpent=" + sumSpent + ", insertDate=" + insertDate + '}';
     }
 
 }

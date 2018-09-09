@@ -26,8 +26,8 @@ public class WebDriverGC extends WebBrowser {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
-//        options
-        return new ChromeDriver();
+
+        return new ChromeDriver(options);
     }
 
 }

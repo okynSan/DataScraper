@@ -13,9 +13,11 @@ public interface ILoginController {
 
     public void clickLoginButton();
 
-    public void setLoginTextField(String loginTextField);
+    public void setLoginTextField(String loginTextField) throws Exception;
 
     public void setPassworkdTextField(String passworkdTextField);
 
     public boolean isLoggedIn();
+    
+    public void logOut();
 }

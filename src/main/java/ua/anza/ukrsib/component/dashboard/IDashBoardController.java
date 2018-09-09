@@ -16,7 +16,7 @@ public interface IDashBoardController {
 
     boolean isMenuButtonVisible();
 
-    public Double getCurrentCapital();
+    public Float getCurrentCapital();
 
     public List<BankEvent> getTableInfo();
 

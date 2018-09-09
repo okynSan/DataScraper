@@ -15,6 +15,7 @@ import ua.anza.ukrsib.model.bank.BankEvent;
 public interface IBankEventDao {
 
     public void saveBankEvent(BankEvent bankEvent);
-    public List<Float> getUnCheckedSums();
+    public List<BankEvent> getUnCheckedSums();
     public boolean isBankEventIfNotExists(BankEvent bankEvent);
+    public void setChecked(Integer bankEventId);
 }

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,12 +29,13 @@ public class BankEventDaoImpl implements IBankEventDao {
     public void saveBankEvent(BankEvent bankEvent) {
         PreparedStatement st = null;
         try {
-            st = MySqlConnection.getConnection().prepareStatement(" insert into bank_event (sum_spent, event_date, insert_date)"
-                    + "value (?,?,?)");
+            st = MySqlConnection.getConnection().prepareStatement(" insert into bank_event (actual_sum,sum_spent, event_date, insert_date)"
+                    + "value (?,?,?,?)");
 
-            st.setDouble(1, bankEvent.getSumSpent());
-            st.setDate(2, new java.sql.Date(bankEvent.getEventDate().getTime().getTime()));
-            st.setTimestamp(3, new java.sql.Timestamp(new Date().getTime()));
+            st.setFloat(1, bankEvent.getActualSum() == null ? 0 : bankEvent.getActualSum());
+            st.setDouble(2, bankEvent.getSumSpent());
+            st.setDate(3, new java.sql.Date(bankEvent.getEventDate().getTime().getTime()));
+            st.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
 
             st.execute();
 
@@ -47,22 +49,29 @@ public class BankEventDaoImpl implements IBankEventDao {
     }
 
     @Override
-    public List<Float> getUnCheckedSums() {
+    public List<BankEvent> getUnCheckedSums() {
         PreparedStatement st = null;
         ResultSet rs = null;
-        List<Float> sums = new ArrayList<>();
+        List<BankEvent> bankEvents = new ArrayList<>();
         try {
             st = MySqlConnection.getConnection().prepareStatement(""
-                    + " select sum_spent"
+                    + " select \n"
+                    + "    `actual_sum`,\n"
+                    + "    `prev_sum`,\n"
+                    + "    `event_date`,\n"
+                    + "    `sum_spent`, \n"
+                    + "     bank_event_id "
                     + " from home.bank_event"
-                    + " where datediff(insert_date,now()) = 0");
-
+                    + " where is_checked = 0"
+                    + " order by insert_date desc ");
             rs = st.executeQuery();
+            Calendar c = null;
+//            c.setTime(rs.getDate(3));
 
             while (rs.next()) {
-                sums.add(rs.getFloat(1));
+                bankEvents.add(new BankEvent(rs.getFloat(1), rs.getFloat(2), c, rs.getFloat(4), rs.getInt(5)));
             }
-            return sums;
+            return bankEvents;
 
         } catch (SQLException ex) {
             Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,6 +115,7 @@ public class BankEventDaoImpl implements IBankEventDao {
             System.out.println(st);
             rs = st.executeQuery();
             System.out.println(rs.next());
+            System.out.println(rs.next() == false ? true : false);
 
             return rs.next() == false ? true : false;
 
@@ -129,5 +139,23 @@ public class BankEventDaoImpl implements IBankEventDao {
             }
         }
         return false;
+    }
+
+    public void setChecked(Integer bankEventId) {
+        PreparedStatement st = null;
+        try {
+            st = MySqlConnection.getConnection().prepareStatement(" "
+                    + " update bank_event set is_checked = 1 where bank_event_id = ?");
+
+            st.setInt(1, bankEventId);
+            st.execute();
+
+            if (st != null) {
+                st.close();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

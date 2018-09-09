@@ -5,6 +5,10 @@
  */
 package ua.anza.ukrsib.component.login;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ua.anza.ukrsib.confige.jdbcconfig.MySqlConnection;
+
 public class LoginControllerImpl implements ILoginController {
 
     Login lg;
@@ -19,18 +23,36 @@ public class LoginControllerImpl implements ILoginController {
     }
 
     @Override
-    public void setLoginTextField(String loginTextField) {
-        this.lg.getLoginTextField().sendKeys(loginTextField);
+    public void setLoginTextField(String loginTextField) throws Exception {
+        try {
+            this.lg.getLoginTextField().sendKeys(loginTextField);
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override
     public void setPassworkdTextField(String passworkdTextField) {
-        this.lg.getPassworkdTextField().sendKeys(passworkdTextField);
+        try {
+            this.lg.getPassworkdTextField().sendKeys(passworkdTextField);
+        } catch (Exception ex) {
+            Logger.getLogger(MySqlConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public boolean isLoggedIn() {
-        return this.lg.dashboard.dashBoardController.isMenuButtonVisible();
+        try {
+            return this.lg.dashboard.dashBoardController.isMenuButtonVisible();
+        } catch (Exception ex) {
+            Logger.getLogger(MySqlConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public void logOut() {
+        this.lg.getLogOut().click();
     }
 
 }
