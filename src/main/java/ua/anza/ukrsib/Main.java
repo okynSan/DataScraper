@@ -6,8 +6,7 @@
 package ua.anza.ukrsib;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import ua.anza.ukrsib.DAO.bankevent.impl.BankEventDaoImpl;
 import ua.anza.ukrsib.component.UkrSibPage;
 import ua.anza.ukrsib.messagesender.MessangerEnum;
@@ -24,10 +23,11 @@ public class Main {
 
     public static String LOGIN;
     public static String PASSWORD;
+    final static Logger logger = Logger.getLogger("file");
 
     public static void main(String[] args) throws InterruptedException {
-//        Main.LOGIN = args[1];
-//        Main.PASSWORD = args[1];
+        Main.LOGIN = args[0];
+        Main.PASSWORD = args[1];
 
         AbstractWorkFlow ukrSib = new UkrSibWorkFlow(new BankEventDaoImpl(),
                 new UkrSibPage(),
@@ -36,12 +36,15 @@ public class Main {
 
         while (true) {
             try {
+                logger.info("Iteration started");
                 ukrSib.doWorkFlow();
-                Thread.sleep(10*100*500);
+                logger.info("Iteration finished");
+                Thread.sleep(10 * 100 * 500);
+
             } catch (Exception ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 ukrSib = null;
-                Thread.sleep(10*100*500);
+                logger.info(ex);
+                Thread.sleep(10 * 100 * 500);
             }
         }
 

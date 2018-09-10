@@ -25,6 +25,8 @@ public abstract class Page {
     protected Login login = null;
 
     public void initPage() {
+        System.out.println(ProjectProperties.getPropertyByKey("page_url"));
+        
         try {
             Driver.getInstance(WebDriverEnum.CHROM)
                     .getWebDriver()

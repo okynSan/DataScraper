@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import ua.anza.ukrsib.confige.jdbcconfig.MySqlConnection;
 import ua.anza.ukrsib.model.bank.BankEvent;
 import ua.anza.ukrsib.DAO.bankevent.IBankEventDao;
@@ -24,6 +23,8 @@ import ua.anza.ukrsib.DAO.bankevent.IBankEventDao;
  * @author andrey_zatvornitskiy
  */
 public class BankEventDaoImpl implements IBankEventDao {
+
+    final static Logger daoLogger = Logger.getLogger("dblogger");
 
     @Override
     public void saveBankEvent(BankEvent bankEvent) {
@@ -44,7 +45,7 @@ public class BankEventDaoImpl implements IBankEventDao {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            daoLogger.warn(ex);
         }
     }
 
@@ -74,21 +75,21 @@ public class BankEventDaoImpl implements IBankEventDao {
             return bankEvents;
 
         } catch (SQLException ex) {
-            Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            daoLogger.error(ex);
         } finally {
 
             if (st != null) {
                 try {
                     st.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    daoLogger.error(ex);
                 }
             }
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    daoLogger.error(ex);
                 }
             }
         }
@@ -120,21 +121,21 @@ public class BankEventDaoImpl implements IBankEventDao {
             return rs.next() == false ? true : false;
 
         } catch (SQLException ex) {
-            Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            daoLogger.warn(ex);
         } finally {
 
             if (st != null) {
                 try {
                     st.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    daoLogger.error(ex);
                 }
             }
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    daoLogger.error(ex);
                 }
             }
         }
@@ -155,7 +156,7 @@ public class BankEventDaoImpl implements IBankEventDao {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BankEventDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            daoLogger.error(ex);
         }
     }
 }

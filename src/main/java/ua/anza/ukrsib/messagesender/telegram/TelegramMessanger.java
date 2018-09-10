@@ -13,8 +13,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import ua.anza.ukrsib.messagesender.AbstractMessanger;
 
 /**
@@ -22,6 +21,8 @@ import ua.anza.ukrsib.messagesender.AbstractMessanger;
  * @author andrey_zatvornitskiy
  */
 public class TelegramMessanger extends AbstractMessanger {
+
+    final static Logger messangerLogger = Logger.getLogger("messenger");
 
     public TelegramMessanger(String url, String apiToken, String chatId) {
         super(url, apiToken, chatId);
@@ -44,11 +45,12 @@ public class TelegramMessanger extends AbstractMessanger {
                 sb.append(inputLine);
             }
             String response = sb.toString();
-            System.out.println(response);
+            messangerLogger.info(response);
+            throw new MalformedURLException("test");
         } catch (MalformedURLException ex) {
-            Logger.getLogger(TelegramMessanger.class.getName()).log(Level.SEVERE, null, ex);
+            messangerLogger.warn(ex);
         } catch (IOException ex) {
-            Logger.getLogger(TelegramMessanger.class.getName()).log(Level.SEVERE, null, ex);
+            messangerLogger.warn(ex);
         }
     }
 
