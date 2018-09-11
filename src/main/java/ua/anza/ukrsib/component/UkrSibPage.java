@@ -6,6 +6,7 @@
 package ua.anza.ukrsib.component;
 
 import java.util.List;
+import org.apache.log4j.Logger;
 import ua.anza.ukrsib.Main;
 import ua.anza.ukrsib.component.dashboard.Dashboard;
 import ua.anza.ukrsib.model.bank.BankEvent;
@@ -15,6 +16,8 @@ import ua.anza.ukrsib.model.bank.BankEvent;
  * @author andrey_zatvornitskiy
  */
 public class UkrSibPage extends Page {
+
+    final static Logger logger = Logger.getLogger("file");
 
     public UkrSibPage() {
         this.initPage();
@@ -27,13 +30,17 @@ public class UkrSibPage extends Page {
             login.loginController.setLoginTextField(Main.LOGIN);
             login.loginController.setPassworkdTextField(Main.PASSWORD);
             login.loginController.clickLoginButton();
+            if (login.loginController.isLoggedIn()) {
+                throw new Exception("not logged in");
+            }
+            
             Dashboard d = login.getDashboard();
             List<BankEvent> bankEvents = d.dashBoardController.getTableInfo();
             bankEvents.get(0).setActualSum(d.dashBoardController.getCurrentCapital());
 
             return bankEvents;
         } catch (Exception ex) {
-            
+            logger.warn(ex);
         } finally {
             login.loginController.logOut();
         }

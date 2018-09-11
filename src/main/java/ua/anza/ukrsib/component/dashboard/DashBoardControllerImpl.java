@@ -6,6 +6,7 @@
 package ua.anza.ukrsib.component.dashboard;
 
 import java.util.List;
+import org.openqa.selenium.WebElement;
 import ua.anza.ukrsib.model.bank.BankEvent;
 import ua.anza.ukrsib.utils.parse.IBankeEventParser;
 import ua.anza.ukrsib.utils.parse.impl.BankEventParserImpl;
@@ -35,16 +36,18 @@ public class DashBoardControllerImpl implements IDashBoardController {
 
     @Override
     public Float getCurrentCapital() {
-        String sumFull = this.dbDashboard.getSumFull().getText();
-        String sumDecimals = this.dbDashboard.getSumDecimals().getText();
+        List<WebElement> sumElements = this.dbDashboard.getSumFull();
 
-        return Float.parseFloat(sumFull.concat(sumDecimals).replaceAll(",", "."));
+        return this.bankeEventParser.getParsedString(sumElements.get(0).getText());
     }
 
     @Override
     public List<BankEvent> getTableInfo() {
-        String a = this.dbDashboard.getEventTable().getText().replaceAll("\\n", "");
-        return this.bankeEventParser.getParsedBankEvents(a);
+        List<WebElement> dataElements = this.dbDashboard.getEventTable();
+
+        String bankEvString = dataElements.get(2).getText().replaceAll("\\n", "");
+        System.out.println(bankEvString);
+        return this.bankeEventParser.getParsedBankEvents(bankEvString);
     }
 
 }

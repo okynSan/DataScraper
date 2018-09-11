@@ -28,17 +28,19 @@ public class UkrSibWorkFlow extends AbstractWorkFlow {
     @Override
     public void doWorkFlow() {
         List<BankEvent> bankEvents = null;
+        boolean empty = false;
 
         bankEvents = pages.doWorkFlow();
 
         if (bankEvents != null) {
-            bankEvents.stream().forEach(bE -> {
-                if (this.bankEventDao.isBankEventIfNotExists(bE)) {
-                    this.bankEventDao.saveBankEvent(bE);
-                }
-            });
+            for (BankEvent be : bankEvents) {
+                System.out.println(be.toString());
 
-            //TODO: BankeEvent
+                if (!this.bankEventDao.isBankEventIfNotExists(be)) {
+                    this.bankEventDao.saveBankEvent(be);
+                }
+            }
+
             List<BankEvent> bankEvList = this.bankEventDao.getUnCheckedSums();
             if (bankEvList.isEmpty()) {
                 ukrSibWorkFlowLogger.info("No new events");

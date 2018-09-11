@@ -80,4 +80,18 @@ public class BankEventParserImpl implements IBankeEventParser {
         return event;
     }
 
+    @Override
+    public Float getParsedString(String value) {
+        Pattern p = Pattern.compile("(\\d{1,}([\\s])\\d{1,},\\d{1,})|(\\d{1,},\\d{1,})");
+        Matcher m = p.matcher(value);
+        while (m.find()) {
+                if (m.group(0) == null) {
+                    return Float.parseFloat(m.group(1).replaceAll(",", "."));
+                } else {
+                    return Float.parseFloat(m.group(0).replaceAll(",", "."));
+                }            
+        }
+        return null;
+    }
+
 }

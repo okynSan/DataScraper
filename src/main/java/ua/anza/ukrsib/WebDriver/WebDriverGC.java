@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.mbaf.omaselenium.WebDriver;
+package ua.anza.ukrsib.WebDriver;
 
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,7 +26,7 @@ public class WebDriverGC extends WebBrowser {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
-
+//
         return new ChromeDriver(options);
     }
 

@@ -12,9 +12,9 @@ import ua.anza.ukrsib.component.login.Login;
 import ua.anza.ukrsib.confige.jdbcconfig.MySqlConnection;
 import ua.anza.ukrsib.confige.prop.ProjectProperties;
 import ua.anza.ukrsib.model.bank.BankEvent;
-import ua.mbaf.omaselenium.WebDriver.ComponentInitor;
-import ua.mbaf.omaselenium.WebDriver.Driver;
-import ua.mbaf.omaselenium.WebDriver.WebDriverEnum;
+import ua.anza.ukrsib.WebDriver.ComponentInitor;
+import ua.anza.ukrsib.WebDriver.Driver;
+import ua.anza.ukrsib.WebDriver.WebDriverEnum;
 
 /**
  *

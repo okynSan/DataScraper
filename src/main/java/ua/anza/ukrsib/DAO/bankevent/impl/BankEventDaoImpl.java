@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import ua.anza.ukrsib.confige.jdbcconfig.MySqlConnection;
 import ua.anza.ukrsib.model.bank.BankEvent;
@@ -39,12 +40,18 @@ public class BankEventDaoImpl implements IBankEventDao {
             st.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
 
             st.execute();
+            MySqlConnection.getConnection().commit();
 
             if (st != null) {
                 st.close();
             }
 
         } catch (SQLException ex) {
+            try {
+                MySqlConnection.getConnection().rollback();
+            } catch (SQLException ex1) {
+                daoLogger.error(ex1);
+            }
             daoLogger.warn(ex);
         }
     }
@@ -64,10 +71,9 @@ public class BankEventDaoImpl implements IBankEventDao {
                     + "     bank_event_id "
                     + " from home.bank_event"
                     + " where is_checked = 0"
-                    + " order by insert_date desc ");
+                    + " order by bank_event_id desc ");
             rs = st.executeQuery();
             Calendar c = null;
-//            c.setTime(rs.getDate(3));
 
             while (rs.next()) {
                 bankEvents.add(new BankEvent(rs.getFloat(1), rs.getFloat(2), c, rs.getFloat(4), rs.getInt(5)));
@@ -103,8 +109,8 @@ public class BankEventDaoImpl implements IBankEventDao {
         ResultSet rs = null;
         try {
             st = MySqlConnection.getConnection().prepareStatement(""
-                    + " SELECT 1\n"
-                    + " FROM home.bank_event\n"
+                    + " SELECT distinct 1\n"
+                    + " FROM `home`.bank_event\n"
                     + " where event_date = ? and sum_spent = ? ");
 
             DecimalFormat df = new DecimalFormat(".##");
@@ -115,10 +121,14 @@ public class BankEventDaoImpl implements IBankEventDao {
 
             System.out.println(st);
             rs = st.executeQuery();
-            System.out.println(rs.next());
-            System.out.println(rs.next() == false ? true : false);
+            
+            if (rs.isBeforeFirst()){
+                System.out.println("1 true");
+            } else {
+                System.out.println("2 false");
+            }
 
-            return rs.next() == false ? true : false;
+            return rs.next();
 
         } catch (SQLException ex) {
             daoLogger.warn(ex);
@@ -131,15 +141,9 @@ public class BankEventDaoImpl implements IBankEventDao {
                     daoLogger.error(ex);
                 }
             }
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    daoLogger.error(ex);
-                }
-            }
+            
         }
-        return false;
+        return true;
     }
 
     public void setChecked(Integer bankEventId) {
@@ -150,12 +154,19 @@ public class BankEventDaoImpl implements IBankEventDao {
 
             st.setInt(1, bankEventId);
             st.execute();
+            MySqlConnection.getConnection().commit();
 
             if (st != null) {
                 st.close();
             }
 
         } catch (SQLException ex) {
+
+            try {
+                MySqlConnection.getConnection().rollback();
+            } catch (SQLException ex1) {
+                daoLogger.error(ex1);
+            }
             daoLogger.error(ex);
         }
     }

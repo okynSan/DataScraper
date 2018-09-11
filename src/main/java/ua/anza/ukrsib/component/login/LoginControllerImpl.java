@@ -52,7 +52,11 @@ public class LoginControllerImpl implements ILoginController {
 
     @Override
     public void logOut() {
-        this.lg.getLogOut().click();
+        try {
+            this.lg.getLogOut().click();
+        } catch (Exception ex) {
+            Logger.getLogger(MySqlConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

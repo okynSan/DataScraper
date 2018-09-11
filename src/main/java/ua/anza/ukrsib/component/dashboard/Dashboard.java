@@ -5,6 +5,7 @@
  */
 package ua.anza.ukrsib.component.dashboard;
 
+import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -18,14 +19,14 @@ public class Dashboard {
     @FindBy(how = How.XPATH, xpath = "/html/body/app-root/div/app-toolbar/mat-toolbar/div[1]/button")
     private WebElement menu;
 
-    @FindBy(how = How.CSS, css = "#idab > span.total.amountPanel > span.sum > span.integer")
-    private WebElement sumFull;
+    @FindBy(how = How.CLASS_NAME, className = "balanceAggregatePanel")
+    private List<WebElement> sumFull;
 
-    @FindBy(how = How.CSS, css = "#idab > span.total.amountPanel > span.sum > span.fractional")
+    @FindBy(how = How.XPATH, xpath = "//*[@id=\"idae\"]/span[3]/span[1]/span[2]")
     private WebElement sumDecimals;
 
-    @FindBy(how = How.CSS, css = "#idd2 > div.data")
-    private WebElement eventTable;
+    @FindBy(how = How.CLASS_NAME, className = "data")
+    private List<WebElement> eventTable;
 
     public IDashBoardController dashBoardController;
 
@@ -37,21 +38,33 @@ public class Dashboard {
         return menu;
     }
 
-    public WebElement getSumFull() {
+//    public WebElement getSumFull() {
+//        return sumFull;
+//    }
+
+    public List<WebElement> getSumFull() {
         return sumFull;
     }
+    
+    
 
     public WebElement getSumDecimals() {
         return sumDecimals;
     }
 
-    public WebElement getEventTable() {
+//    public WebElement getEventTable() {
+//        return eventTable;
+//    }
+//
+//    public void setEventTable(WebElement eventTable) {
+//        this.eventTable = eventTable;
+//    }
+
+    public List<WebElement> getEventTable() {
         return eventTable;
     }
-
-    public void setEventTable(WebElement eventTable) {
-        this.eventTable = eventTable;
-    }
+    
+    
     
     
 

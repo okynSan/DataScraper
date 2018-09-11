@@ -46,7 +46,6 @@ public class TelegramMessanger extends AbstractMessanger {
             }
             String response = sb.toString();
             messangerLogger.info(response);
-            throw new MalformedURLException("test");
         } catch (MalformedURLException ex) {
             messangerLogger.warn(ex);
         } catch (IOException ex) {

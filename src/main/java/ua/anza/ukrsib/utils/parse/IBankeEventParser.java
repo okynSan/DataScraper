@@ -15,5 +15,6 @@ import ua.anza.ukrsib.model.bank.BankEvent;
 public interface IBankeEventParser {
 
     public List<BankEvent> getParsedBankEvents(String tableText);
+    public Float getParsedString(String value);
 
 }

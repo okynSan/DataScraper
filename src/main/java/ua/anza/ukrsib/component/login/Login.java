@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import ua.anza.ukrsib.component.dashboard.Dashboard;
-import ua.mbaf.omaselenium.WebDriver.ComponentInitor;
+import ua.anza.ukrsib.WebDriver.ComponentInitor;
 
 /**
  *
@@ -28,7 +28,7 @@ public class Login {
     @FindBy(how = How.XPATH, xpath = "//*[@id=\"ide\"]")
     private WebElement passworkdTextField;
 
-    @FindBy(how = How.CSS, css = "#idaa > div.userPanel > div.section.right > a.actionLogout")
+    @FindBy(how = How.CLASS_NAME, className = "actionLogout")
     private WebElement logOut;
 
     public ILoginController loginController;

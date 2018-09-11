@@ -5,7 +5,7 @@
  */
 package ua.anza.ukrsib.component;
 
-import ua.mbaf.omaselenium.WebDriver.ComponentInitor;
+import ua.anza.ukrsib.WebDriver.ComponentInitor;
 
 /**
  *
