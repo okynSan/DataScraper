@@ -86,9 +86,9 @@ public class BankEventParserImpl implements IBankeEventParser {
         Matcher m = p.matcher(value);
         while (m.find()) {
                 if (m.group(0) == null) {
-                    return Float.parseFloat(m.group(1).replaceAll(",", "."));
+                    return Float.parseFloat(m.group(1).replaceAll(",", ".").replaceAll(" ", ""));
                 } else {
-                    return Float.parseFloat(m.group(0).replaceAll(",", "."));
+                    return Float.parseFloat(m.group(0).replaceAll(",", ".").replaceAll(" ", ""));
                 }            
         }
         return null;

@@ -22,7 +22,7 @@ public class Login {
     @FindBy(how = How.XPATH, xpath = "//*[@id=\"id10\"]")
     private WebElement loginButton;
 
-    @FindBy(how = How.XPATH, xpath = "//*[@id=\"idc\"]")
+    @FindBy(how = How.CLASS_NAME, className = "phoneNumber")
     private WebElement loginTextField;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id=\"ide\"]")
@@ -32,7 +32,7 @@ public class Login {
     private WebElement logOut;
 
     public ILoginController loginController;
-
+ 
     Dashboard dashboard;
 
     public Login() {

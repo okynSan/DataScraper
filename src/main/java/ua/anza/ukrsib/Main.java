@@ -37,11 +37,11 @@ public class Main {
                 logger.info("Iteration started");
                 ukrSib.doWorkFlow();
                 logger.info("Iteration finished");
-                Thread.sleep(10 * 3000*500);
+                Thread.sleep(1500000);
 
             } catch (Exception ex) {
                 logger.info(ex);
-                Thread.sleep(10 * 3000);
+                Thread.sleep(1500000);
             }
         }
 
