@@ -27,22 +27,27 @@ public class Main {
         Main.LOGIN = args[0];
         Main.PASSWORD = args[1];
         logger.info(args[0]);
-        AbstractWorkFlow ukrSib = new UkrSibWorkFlow(new BankEventDaoImpl(),
-                new UkrSibPage(),
-                MessangerFactory.getMessenger(MessangerEnum.Telegram)
-        );
 
         while (true) {
+
+            AbstractWorkFlow ukrSib = new UkrSibWorkFlow(new BankEventDaoImpl(),
+                    new UkrSibPage(),
+                    MessangerFactory.getMessenger(MessangerEnum.Telegram)
+            );
+
             try {
                 logger.info("Iteration started");
                 ukrSib.doWorkFlow();
                 logger.info("Iteration finished");
-                Thread.sleep(1500000);
+                Thread.sleep(50000);
 
             } catch (Exception ex) {
                 logger.info(ex);
-                Thread.sleep(1500000);
+                Thread.sleep(50000);
             }
+
+            ukrSib = null;
+
         }
 
     }
