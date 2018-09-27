@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import ua.anza.ukrsib.component.dashboard.DashBoardControllerImpl;
 import ua.anza.ukrsib.model.bank.BankEvent;
 import ua.anza.ukrsib.utils.parse.IBankeEventParser;
 
@@ -39,7 +38,7 @@ public class BankEventParserImpl implements IBankeEventParser {
                 p = Pattern.compile("(\\d{2}.\\d{2}.\\d{4}).*?(\\d{1,},\\d{2})");
                 Matcher m = p.matcher(res);
                 while (m.find()) {
-                    bankEvents.add(this.initBankeEvent("-" + m.group(2), m.group(1)));
+                    bankEvents.add(this.initBankeEvent("-" + m.group(2), m.group(1)));                   
                     break;
 
                 }

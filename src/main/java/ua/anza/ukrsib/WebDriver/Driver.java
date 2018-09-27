@@ -55,7 +55,7 @@ public class Driver {
         webDriver = new WebDriverFactory().getDriver(driverEnum);
         webDriver.manage().timeouts().implicitlyWait(WAIT_TIME_OUT, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
-        
+
     }
 
     public WebDriver getWebDriver() {
@@ -77,6 +77,12 @@ public class Driver {
 
     public void goTo(String BaseUrl) {
         getWebDriver().get(BaseUrl);
+    }
+
+    public static void closeConnetction() {
+        getInstance().getWebDriver().quit();
+        Driver.me = null;
+        Driver.webDriver = null;
     }
 
 }

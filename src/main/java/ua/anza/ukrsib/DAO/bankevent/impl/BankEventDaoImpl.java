@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import ua.anza.ukrsib.confige.jdbcconfig.MySqlConnection;
 import ua.anza.ukrsib.model.bank.BankEvent;
@@ -40,7 +39,6 @@ public class BankEventDaoImpl implements IBankEventDao {
             st.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
 
             st.execute();
-            MySqlConnection.getConnection().commit();
 
             if (st != null) {
                 st.close();
@@ -115,7 +113,7 @@ public class BankEventDaoImpl implements IBankEventDao {
 
             DecimalFormat df = new DecimalFormat(".##");
             System.out.println();
-
+            
             st.setDate(1, new java.sql.Date(bankEvent.getEventDate().getTime().getTime()));
             st.setString(2, df.format(bankEvent.getSumSpent()).replaceAll(",", "."));
 

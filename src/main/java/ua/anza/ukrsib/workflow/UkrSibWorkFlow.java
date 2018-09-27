@@ -9,6 +9,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import org.apache.log4j.Logger;
 import ua.anza.ukrsib.DAO.bankevent.IBankEventDao;
+import ua.anza.ukrsib.WebDriver.Driver;
 import ua.anza.ukrsib.component.Page;
 import ua.anza.ukrsib.messagesender.AbstractMessanger;
 import ua.anza.ukrsib.model.bank.BankEvent;
@@ -58,7 +59,6 @@ public class UkrSibWorkFlow extends AbstractWorkFlow {
         } else {
             ukrSibWorkFlowLogger.info("No new events");
         }
-
     }
 
 }
