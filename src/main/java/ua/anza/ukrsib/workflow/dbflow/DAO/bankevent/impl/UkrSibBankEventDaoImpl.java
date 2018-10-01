@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.anza.ukrsib.dbflow.DAO.bankevent.impl;
+package ua.anza.ukrsib.workflow.dbflow.DAO.bankevent.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import ua.anza.ukrsib.confige.jdbcconfig.MySqlConnection;
 import ua.anza.ukrsib.model.bank.UkrSibBankEvent;
-import ua.anza.ukrsib.dbflow.DAO.bankevent.IBankEventDao;
+import ua.anza.ukrsib.workflow.dbflow.DAO.bankevent.IBankEventDao;
 
 /**
  *

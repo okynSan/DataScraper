@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.anza.ukrsib.dbflow.DAO.bankevent;
+package ua.anza.ukrsib.workflow.dbflow.DAO.bankevent;
 
 import java.util.List;
 import ua.anza.ukrsib.model.bank.UkrSibBankEvent;

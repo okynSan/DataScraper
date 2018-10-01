@@ -6,7 +6,7 @@
 package ua.anza.ukrsib;
 
 import org.apache.log4j.Logger;
-import ua.anza.ukrsib.dbflow.DAO.bankevent.impl.UkrSibBankEventDaoImpl;
+import ua.anza.ukrsib.workflow.dbflow.DAO.bankevent.impl.UkrSibBankEventDaoImpl;
 import ua.anza.ukrsib.component.UkrSibPage;
 import ua.anza.ukrsib.messagesender.MessangerEnum;
 import ua.anza.ukrsib.messagesender.MessangerFactory;
@@ -29,8 +29,7 @@ public class Main {
 
         while (true) {
 
-            AbstractWorkFlow ukrSib = new UkrSibWorkFlow(new UkrSibBankEventDaoImpl(),
-                    new UkrSibPage(),
+            AbstractWorkFlow ukrSib = new UkrSibWorkFlow( new UkrSibPage(),
                     MessangerFactory.getMessenger(MessangerEnum.Telegram)
             );
 
@@ -38,11 +37,11 @@ public class Main {
                 logger.info("Iteration started");
                 ukrSib.doWorkFlow();
                 logger.info("Iteration finished");
-                Thread.sleep(50000);
+                Thread.sleep(500000);
 
             } catch (Exception ex) {
                 logger.info(ex);
-                Thread.sleep(50000);
+                Thread.sleep(500000);
             }
 
             ukrSib = null;
