@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import ua.anza.ukrsib.model.bank.BankEvent;
+import ua.anza.ukrsib.model.bank.UkrSibBankEvent;
 import ua.anza.ukrsib.utils.parse.IBankeEventParser;
 
 /**
@@ -26,8 +26,8 @@ import ua.anza.ukrsib.utils.parse.IBankeEventParser;
 public class BankEventParserImpl implements IBankeEventParser {
 
     @Override
-    public List<BankEvent> getParsedBankEvents(String tableText) {
-        List<BankEvent> bankEvents = new ArrayList<>();
+    public List<UkrSibBankEvent> getParsedBankEvents(String tableText) {
+        List<UkrSibBankEvent> bankEvents = new ArrayList<>();
 
         tableText = tableText.replaceAll("ДАТА ОПЕРАЦІЇ ОПИС ОПЕРАЦІЇСУМА ОПЕРАЦІЇ", "");
 
@@ -59,9 +59,9 @@ public class BankEventParserImpl implements IBankeEventParser {
         return bankEvents;
     }
 
-    private BankEvent initBankeEvent(String eventSum, String eventDate) {
+    private UkrSibBankEvent initBankeEvent(String eventSum, String eventDate) {
 
-        BankEvent event = new BankEvent();
+        UkrSibBankEvent event = new UkrSibBankEvent();
         event.setSumSpent(Float.parseFloat(eventSum.replaceAll(",", ".")));
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy", Locale.ENGLISH);

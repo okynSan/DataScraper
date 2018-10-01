@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.anza.ukrsib.DAO.bankevent.impl;
+package ua.anza.ukrsib.dbflow.DAO.bankevent.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,21 +13,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import ua.anza.ukrsib.confige.jdbcconfig.MySqlConnection;
-import ua.anza.ukrsib.model.bank.BankEvent;
-import ua.anza.ukrsib.DAO.bankevent.IBankEventDao;
+import ua.anza.ukrsib.model.bank.UkrSibBankEvent;
+import ua.anza.ukrsib.dbflow.DAO.bankevent.IBankEventDao;
 
 /**
  *
  * @author andrey_zatvornitskiy
  */
-public class BankEventDaoImpl implements IBankEventDao {
+public class UkrSibBankEventDaoImpl implements IBankEventDao {
 
     final static Logger daoLogger = Logger.getLogger("dblogger");
 
     @Override
-    public void saveBankEvent(BankEvent bankEvent) {
+    public void saveBankEvent(UkrSibBankEvent bankEvent) {
         PreparedStatement st = null;
         try {
             st = MySqlConnection.getConnection().prepareStatement(" insert into bank_event (actual_sum,sum_spent, event_date, insert_date)"
@@ -55,10 +56,10 @@ public class BankEventDaoImpl implements IBankEventDao {
     }
 
     @Override
-    public List<BankEvent> getUnCheckedSums() {
+    public List<UkrSibBankEvent> getUnCheckedSums() {
         PreparedStatement st = null;
         ResultSet rs = null;
-        List<BankEvent> bankEvents = new ArrayList<>();
+        List<UkrSibBankEvent> bankEvents = new ArrayList<>();
         try {
             st = MySqlConnection.getConnection().prepareStatement(""
                     + " select \n"
@@ -74,7 +75,7 @@ public class BankEventDaoImpl implements IBankEventDao {
             Calendar c = null;
 
             while (rs.next()) {
-                bankEvents.add(new BankEvent(rs.getFloat(1), rs.getFloat(2), c, rs.getFloat(4), rs.getInt(5)));
+                bankEvents.add(new UkrSibBankEvent(rs.getFloat(1), rs.getFloat(2), c, rs.getFloat(4), rs.getInt(5)));
             }
             return bankEvents;
 
@@ -89,20 +90,13 @@ public class BankEventDaoImpl implements IBankEventDao {
                     daoLogger.error(ex);
                 }
             }
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    daoLogger.error(ex);
-                }
-            }
         }
         return null;
 
     }
 
     @Override
-    public boolean isBankEventIfNotExists(BankEvent bankEvent) {
+    public boolean isBankEventIfNotExists(UkrSibBankEvent bankEvent) {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -113,23 +107,23 @@ public class BankEventDaoImpl implements IBankEventDao {
 
             DecimalFormat df = new DecimalFormat(".##");
             System.out.println();
-            
+
             st.setDate(1, new java.sql.Date(bankEvent.getEventDate().getTime().getTime()));
             st.setString(2, df.format(bankEvent.getSumSpent()).replaceAll(",", "."));
 
             System.out.println(st);
             rs = st.executeQuery();
-            
-            if (rs.isBeforeFirst()){
-                System.out.println("1 true");
-            } else {
-                System.out.println("2 false");
-            }
 
-            return rs.next();
+            if (rs.next()) {
+                boolean f = rs.getInt(1) == 1 ? true : false;
+                System.out.println("Flag is = " + f);
+                System.out.println("Row has - " + rs.getInt(1));
+                return f;
+            }
 
         } catch (SQLException ex) {
             daoLogger.warn(ex);
+            return false;
         } finally {
 
             if (st != null) {
@@ -139,9 +133,9 @@ public class BankEventDaoImpl implements IBankEventDao {
                     daoLogger.error(ex);
                 }
             }
-            
+
         }
-        return true;
+        return false;
     }
 
     public void setChecked(Integer bankEventId) {

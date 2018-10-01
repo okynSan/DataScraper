@@ -6,7 +6,7 @@
 package ua.anza.ukrsib.component.dashboard;
 
 import java.util.List;
-import ua.anza.ukrsib.model.bank.BankEvent;
+import ua.anza.ukrsib.model.bank.UkrSibBankEvent;
 
 /**
  *
@@ -18,6 +18,6 @@ public interface IDashBoardController {
 
     public Float getCurrentCapital();
 
-    public List<BankEvent> getTableInfo();
+    public List<UkrSibBankEvent> getTableInfo();
 
 }

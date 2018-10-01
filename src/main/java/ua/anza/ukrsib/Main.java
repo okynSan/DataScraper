@@ -6,7 +6,7 @@
 package ua.anza.ukrsib;
 
 import org.apache.log4j.Logger;
-import ua.anza.ukrsib.DAO.bankevent.impl.BankEventDaoImpl;
+import ua.anza.ukrsib.dbflow.DAO.bankevent.impl.UkrSibBankEventDaoImpl;
 import ua.anza.ukrsib.component.UkrSibPage;
 import ua.anza.ukrsib.messagesender.MessangerEnum;
 import ua.anza.ukrsib.messagesender.MessangerFactory;
@@ -26,11 +26,10 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         Main.LOGIN = args[0];
         Main.PASSWORD = args[1];
-        logger.info(args[0]);
 
         while (true) {
 
-            AbstractWorkFlow ukrSib = new UkrSibWorkFlow(new BankEventDaoImpl(),
+            AbstractWorkFlow ukrSib = new UkrSibWorkFlow(new UkrSibBankEventDaoImpl(),
                     new UkrSibPage(),
                     MessangerFactory.getMessenger(MessangerEnum.Telegram)
             );

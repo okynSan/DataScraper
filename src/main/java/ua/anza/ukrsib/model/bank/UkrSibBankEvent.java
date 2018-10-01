@@ -7,12 +7,13 @@ package ua.anza.ukrsib.model.bank;
 
 import java.sql.Date;
 import java.util.Calendar;
+import ua.anza.ukrsib.model.AEvents;
 
 /**
  *
  * @author andrey_zatvornitskiy
  */
-public class BankEvent {
+public class UkrSibBankEvent extends AEvents {
 
     private Integer bankEventId;
     private Float actualSum;
@@ -21,16 +22,16 @@ public class BankEvent {
     private Float sumSpent;
     private Calendar insertDate;
 
-    public BankEvent() {
+    public UkrSibBankEvent() {
     }
 
-    public BankEvent(Float actualSum, Float prevSum, Calendar eventDate) {
+    public UkrSibBankEvent(Float actualSum, Float prevSum, Calendar eventDate) {
         this.actualSum = actualSum;
         this.prevSum = prevSum;
         this.eventDate = eventDate;
     }
 
-    public BankEvent(Float actualSum, Float prevSum, Calendar eventDate, Float sumSpent, Calendar insertDate) {
+    public UkrSibBankEvent(Float actualSum, Float prevSum, Calendar eventDate, Float sumSpent, Calendar insertDate) {
         this.actualSum = actualSum;
         this.prevSum = prevSum;
         this.eventDate = eventDate;
@@ -38,7 +39,7 @@ public class BankEvent {
         this.insertDate = insertDate;
     }
 
-    public BankEvent(Float actualSum, Float prevSum, Calendar eventDate, Float sumSpent, Integer bankEventId) {
+    public UkrSibBankEvent(Float actualSum, Float prevSum, Calendar eventDate, Float sumSpent, Integer bankEventId) {
         this.actualSum = actualSum;
         this.prevSum = prevSum;
         this.eventDate = eventDate;

@@ -5,7 +5,7 @@
  */
 package ua.anza.ukrsib.workflow;
 
-import ua.anza.ukrsib.DAO.bankevent.IBankEventDao;
+import ua.anza.ukrsib.dbflow.DAO.bankevent.IBankEventDao;
 import ua.anza.ukrsib.component.Page;
 import ua.anza.ukrsib.messagesender.AbstractMessanger;
 
@@ -21,6 +21,11 @@ public abstract class AbstractWorkFlow {
 
     public AbstractWorkFlow(IBankEventDao bankEventDao, Page pages, AbstractMessanger messanger) {
         this.bankEventDao = bankEventDao;
+        this.pages = pages;
+        this.messanger = messanger;
+    }
+
+    public AbstractWorkFlow(Page pages, AbstractMessanger messanger) {
         this.pages = pages;
         this.messanger = messanger;
     }

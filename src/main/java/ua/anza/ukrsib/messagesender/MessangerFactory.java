@@ -14,17 +14,6 @@ import ua.anza.ukrsib.messagesender.telegram.TelegramMessanger;
  */
 public class MessangerFactory {
 
-//    private static Properties properties;
-//
-//    static {
-//        properties = new Properties();
-//        URL url = ClassLoader.getSystemResource("Configuration.properties");
-//        try {
-//            properties.load(url.openStream());
-//        } catch (IOException ex) {
-//        }
-//    }
-
     public static AbstractMessanger getMessenger(MessangerEnum messangerEnum) {
         switch (messangerEnum) {
             case Telegram:

@@ -18,9 +18,9 @@ import ua.anza.ukrsib.confige.prop.ProjectProperties;
  * @author andrey_zatvornitskiy
  */
 public class MySqlConnection {
-    
+
     static Connection connection = null;
-    
+
     static {
         try {
             Class.forName(ProjectProperties.getPropertyByKey("jdbc_driver")).newInstance();
@@ -32,7 +32,7 @@ public class MySqlConnection {
             Logger.getLogger(MySqlConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static Connection getConnection() throws SQLException {
         if (MySqlConnection.connection == null) {
             connection = DriverManager.getConnection(
@@ -40,10 +40,14 @@ public class MySqlConnection {
                     ProjectProperties.getPropertyByKey("user"),
                     ProjectProperties.getPropertyByKey("password")
             );
-            
+
             connection.setAutoCommit(false);
         }
         return connection;
     }
-    
+
+    public static void closConnection() {
+        connection = null;
+    }
+
 }

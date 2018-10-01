@@ -6,7 +6,7 @@
 package ua.anza.ukrsib.utils.parse;
 
 import java.util.List;
-import ua.anza.ukrsib.model.bank.BankEvent;
+import ua.anza.ukrsib.model.bank.UkrSibBankEvent;
 
 /**
  *
@@ -14,7 +14,7 @@ import ua.anza.ukrsib.model.bank.BankEvent;
  */
 public interface IBankeEventParser {
 
-    public List<BankEvent> getParsedBankEvents(String tableText);
+    public List<UkrSibBankEvent> getParsedBankEvents(String tableText);
     public Float getParsedString(String value);
 
 }

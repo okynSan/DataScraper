@@ -7,7 +7,7 @@ package ua.anza.ukrsib.component.dashboard;
 
 import java.util.List;
 import org.openqa.selenium.WebElement;
-import ua.anza.ukrsib.model.bank.BankEvent;
+import ua.anza.ukrsib.model.bank.UkrSibBankEvent;
 import ua.anza.ukrsib.utils.parse.IBankeEventParser;
 import ua.anza.ukrsib.utils.parse.impl.BankEventParserImpl;
 
@@ -42,7 +42,7 @@ public class DashBoardControllerImpl implements IDashBoardController {
     }
 
     @Override
-    public List<BankEvent> getTableInfo() {
+    public List<UkrSibBankEvent> getTableInfo() {
         List<WebElement> dataElements = this.dbDashboard.getEventTable();
 
         String bankEvString = dataElements.get(2).getText().replaceAll("\\n", "");

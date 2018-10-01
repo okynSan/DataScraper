@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import ua.anza.ukrsib.Main;
 import ua.anza.ukrsib.WebDriver.Driver;
 import ua.anza.ukrsib.component.dashboard.Dashboard;
-import ua.anza.ukrsib.model.bank.BankEvent;
+import ua.anza.ukrsib.model.bank.UkrSibBankEvent;
 
 /**
  *
@@ -25,7 +25,7 @@ public class UkrSibPage extends Page {
     }
 
     @Override
-    public List<BankEvent> doWorkFlow() {
+    public List<UkrSibBankEvent> doWorkFlow() {
 
         try {
             login.loginController.setLoginTextField(Main.LOGIN);
@@ -36,14 +36,13 @@ public class UkrSibPage extends Page {
             }
 
             Dashboard d = login.getDashboard();
-            List<BankEvent> bankEvents = d.dashBoardController.getTableInfo();
+            List<UkrSibBankEvent> bankEvents = d.dashBoardController.getTableInfo();
             bankEvents.get(0).setActualSum(d.dashBoardController.getCurrentCapital());
             login.loginController.logOut();
+            Driver.closeConnetction();
             return bankEvents;
         } catch (Exception ex) {
             logger.warn(ex);
-        } finally {
-
             Driver.closeConnetction();
         }
         return null;

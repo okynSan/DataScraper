@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import ua.anza.ukrsib.component.login.Login;
 import ua.anza.ukrsib.confige.jdbcconfig.MySqlConnection;
 import ua.anza.ukrsib.confige.prop.ProjectProperties;
-import ua.anza.ukrsib.model.bank.BankEvent;
+import ua.anza.ukrsib.model.bank.UkrSibBankEvent;
 import ua.anza.ukrsib.WebDriver.ComponentInitor;
 import ua.anza.ukrsib.WebDriver.Driver;
 import ua.anza.ukrsib.WebDriver.WebDriverEnum;
@@ -37,6 +37,6 @@ public abstract class Page {
         }
     }
 
-    public abstract List<BankEvent> doWorkFlow();
+    public abstract List<UkrSibBankEvent> doWorkFlow();
 
 }
