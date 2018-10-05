@@ -5,11 +5,13 @@
  */
 package ua.anza.ukrsib.utils.parse.impl;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -38,7 +40,7 @@ public class BankEventParserImpl implements IBankeEventParser {
                 p = Pattern.compile("(\\d{2}.\\d{2}.\\d{4}).*?(\\d{1,},\\d{2})");
                 Matcher m = p.matcher(res);
                 while (m.find()) {
-                    bankEvents.add(this.initBankeEvent("-" + m.group(2), m.group(1)));                   
+                    bankEvents.add(this.initBankeEvent("-" + m.group(2), m.group(1)));
                     break;
 
                 }
@@ -63,12 +65,10 @@ public class BankEventParserImpl implements IBankeEventParser {
 
         UkrSibBankEvent event = new UkrSibBankEvent();
         event.setSumSpent(Float.parseFloat(eventSum.replaceAll(",", ".")));
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy", Locale.ENGLISH);
-
         try {
-            System.out.println(eventDate);
-            cal.setTime(sdf.parse(eventDate));
+            cal.setTime(df.parse(eventDate));
         } catch (ParseException ex) {
             Logger.getLogger(BankEventParserImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,11 +84,11 @@ public class BankEventParserImpl implements IBankeEventParser {
         Pattern p = Pattern.compile("(\\d{1,}([\\s])\\d{1,},\\d{1,})|(\\d{1,},\\d{1,})");
         Matcher m = p.matcher(value);
         while (m.find()) {
-                if (m.group(0) == null) {
-                    return Float.parseFloat(m.group(1).replaceAll(",", ".").replaceAll(" ", ""));
-                } else {
-                    return Float.parseFloat(m.group(0).replaceAll(",", ".").replaceAll(" ", ""));
-                }            
+            if (m.group(0) == null) {
+                return Float.parseFloat(m.group(1).replaceAll(",", ".").replaceAll(" ", ""));
+            } else {
+                return Float.parseFloat(m.group(0).replaceAll(",", ".").replaceAll(" ", ""));
+            }
         }
         return null;
     }
