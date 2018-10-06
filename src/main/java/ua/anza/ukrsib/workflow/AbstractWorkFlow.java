@@ -5,7 +5,7 @@
  */
 package ua.anza.ukrsib.workflow;
 
-import ua.anza.ukrsib.workflow.dbflow.DAO.bankevent.IBankEventDao;
+import ua.anza.ukrsib.DAO.bankevent.IBankEventDao;
 import ua.anza.ukrsib.component.Page;
 import ua.anza.ukrsib.messagesender.AbstractMessanger;
 

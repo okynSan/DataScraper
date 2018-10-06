@@ -6,8 +6,8 @@
 package ua.anza.ukrsib.workflow.dbflow;
 
 import java.util.List;
-import ua.anza.ukrsib.workflow.dbflow.DAO.bankevent.IBankEventDao;
-import ua.anza.ukrsib.workflow.dbflow.DAO.bankevent.impl.UkrSibBankEventDaoImpl;
+import ua.anza.ukrsib.DAO.bankevent.IBankEventDao;
+import ua.anza.ukrsib.DAO.bankevent.impl.UkrSibBankEventDaoImpl;
 import ua.anza.ukrsib.model.AEvents;
 import ua.anza.ukrsib.model.bank.UkrSibBankEvent;
 

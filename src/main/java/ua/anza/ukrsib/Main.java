@@ -6,7 +6,7 @@
 package ua.anza.ukrsib;
 
 import org.apache.log4j.Logger;
-import ua.anza.ukrsib.workflow.dbflow.DAO.bankevent.impl.UkrSibBankEventDaoImpl;
+import ua.anza.ukrsib.DAO.bankevent.impl.UkrSibBankEventDaoImpl;
 import ua.anza.ukrsib.component.UkrSibPage;
 import ua.anza.ukrsib.messagesender.MessangerEnum;
 import ua.anza.ukrsib.messagesender.MessangerFactory;
